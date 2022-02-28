@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import Coin from "./Coin";
 
 const App = () => {
   const [coins, setCoins] = useState([])
@@ -24,7 +25,7 @@ const App = () => {
     setQuery(event.target.value)
   } 
 
-  const filtered = coins.filter((coin) => 
+  const filterCoins = coins.filter((coin) => 
     coin.name.toLowerCase().indexOf(query.toLowerCase()) > -1
   )
 
@@ -42,6 +43,23 @@ const App = () => {
           />
         </form>
       </div>
+
+      {filterCoins.map((coin) => {
+        return (
+          <Coin
+            key={coin.id}
+            image={coin.image}
+            name={coin.name}
+            symbol={coin.symbol}
+            currentPrice={coin.current_price}
+            totalVolume={coin.totalVolume}
+            priceChange={coin.price_change_percentage_24h}
+            marketCap={coin.market_cap}
+            />
+
+
+        )
+      })}
     </div>
   );
 };
