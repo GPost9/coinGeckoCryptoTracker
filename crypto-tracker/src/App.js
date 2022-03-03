@@ -6,6 +6,7 @@ import Coin from "./Coin";
 const App = () => {
   const [coins, setCoins] = useState([]);
   const [query, setQuery] = useState("");
+  // const [sparkline, setSparkline] = useState([])
 
   useEffect(() => {
     const getCoins = async () => {
@@ -14,10 +15,13 @@ const App = () => {
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true"
         )
         .then((res) => {
+          // let sparklineData = res.data.map((coin) => coin.sparkline_in_7d.price)
           setCoins(res.data);
-          console.log(res.data);
+          // setSparkline(sparklineData)
+          console.log("this is the coins data: ", res.data)
+          // console.log("this is the sparkline data: ", sparklineData)
         })
-        .catch((error) => alert(error));
+        .catch((error) => console.log(error));
     };
 
     getCoins();
@@ -27,9 +31,9 @@ const App = () => {
     setQuery(event.target.value);
   };
 
-  const filterCoins = coins.filter(
-    (coin) => coin.name.toLowerCase().indexOf(query.toLowerCase()) > -1
-  );
+  const filterCoins = coins.filter((coin) => coin.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
+
+  // const formattedSparkline = sparkline.map((item) => Math.floor(item))
 
   return (
     <div className="App">
@@ -50,19 +54,21 @@ const App = () => {
           <p className="volumeLabel">Total Volume</p>
           <p className="priceChangeLabel">Price Change</p>
           <p className="marketCapLabel">Market Cap</p>
+          <p className="weekTrendLabel">Last Seven Days</p>
       </div>
 
       {filterCoins.map((coin) => {
         return (
           <Coin
             key={coin.id}
+            id={coin.id}
             image={coin.image}
             name={coin.name}
-            symbol={coin.symbol}
             currentPrice={coin.current_price}
             totalVolume={coin.total_volume}
             priceChange={coin.price_change_percentage_24h}
             marketCap={coin.market_cap}
+            sparkline={coin.sparkline_in_7d.price.map((item) => Math.floor(item))}
           />
         );
       })}

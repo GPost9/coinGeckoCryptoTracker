@@ -10,25 +10,20 @@
     align-items: center;
     height: 80px;
     border-bottom: 1px solid #ffffff;
-    width: 900px;
+    width: 1000px;
 }
 
 .coinInfo {
     display: flex;
     align-items: center;
-    padding-right: 120px;
-    width: 200px;
+    width: 20%;
+    /* width: 150px; */
 }
 
 .coinInfo img {
     height: 20px;
     width: 20px;
-    margin-right: 10px;
-}
-
-.symbol {
-    text-transform: uppercase;
-    margin-left: 10px;
+    margin-right: 5px;
 }
 
 .data {
@@ -39,21 +34,20 @@
 }
 
 .currentPrice {
-    width: 110px;
-    margin-right: 80px;
-    padding-right: 50px;
+    width: 20%;
+    margin-left: -60px;
 }
 
 .totalVolume {
-    width: 155px;
+    margin-left: -90px;
 }
 
 .percent {
-    width: 100%;
+    margin-left: -30px;
 }
 
 .marketCap {
-    width: 155px;
+   margin-right: -50px;
 }
 
 .red {
