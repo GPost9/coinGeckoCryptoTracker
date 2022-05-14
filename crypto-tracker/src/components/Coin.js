@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Sparklines, SparklinesLine } from "react-sparklines";
-import "./Coin.css";
+import "../styles/Coin.css";
 
 const Coin = ({
   id,

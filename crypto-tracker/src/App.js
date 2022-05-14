@@ -1,77 +1,48 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
-import Coin from "./Coin";
+import CoinList from "./components/CoinList";
+import Coin from "./components/Coin";
 
 const App = () => {
-  const [coins, setCoins] = useState([]);
-  const [query, setQuery] = useState("");
+  // const [coins, setCoins] = useState([]);
+  // const [query, setQuery] = useState("");
   // const [sparkline, setSparkline] = useState([])
 
-  useEffect(() => {
-    const getCoins = async () => {
-      await axios
-        .get(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true"
-        )
-        .then((res) => {
-          // let sparklineData = res.data.map((coin) => coin.sparkline_in_7d.price)
-          setCoins(res.data);
-          // setSparkline(sparklineData)
-          console.log("this is the coins data: ", res.data)
-          // console.log("this is the sparkline data: ", sparklineData)
-        })
-        .catch((error) => console.log(error));
-    };
+  // useEffect(() => {
+  //   const getCoins = async () => {
+  //     await axios
+  //       .get(
+  //         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true"
+  //       )
+  //       .then((res) => {
+  //         // let sparklineData = res.data.map((coin) => coin.sparkline_in_7d.price)
+  //         setCoins(res.data);
+  //         // setSparkline(sparklineData)
+  //         console.log("this is the coins data: ", res.data)
+  //         // console.log("this is the sparkline data: ", sparklineData)
+  //       })
+  //       .catch((error) => console.log(error));
+  //   };
 
-    getCoins();
-  }, []);
+  //   getCoins();
+  // }, []);
 
-  const handleChange = (event) => {
-    setQuery(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setQuery(event.target.value);
+  // };
 
-  const filterCoins = coins.filter((coin) => coin.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
+  // const filterCoins = coins.filter((coin) => coin.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
 
   // const formattedSparkline = sparkline.map((item) => Math.floor(item))
 
   return (
     <div className="App">
-      <div className="search">
-        <form>
-          <input
-            className="input"
-            type="text"
-            placeholder="Search a Coin"
-            onChange={handleChange}
-          />
-        </form>
-      </div>
-
-      <div className="headerContainer">
-          <p className="coinLabel">Coin</p>
-          <p className="priceLabel">Price</p>
-          <p className="volumeLabel">Total Volume</p>
-          <p className="priceChangeLabel">Price Change</p>
-          <p className="marketCapLabel">Market Cap</p>
-          <p className="weekTrendLabel">Last Seven Days</p>
-      </div>
-
-      {filterCoins.map((coin) => {
-        return (
-          <Coin
-            key={coin.id}
-            id={coin.id}
-            image={coin.image}
-            name={coin.name}
-            currentPrice={coin.current_price}
-            totalVolume={coin.total_volume}
-            priceChange={coin.price_change_percentage_24h}
-            marketCap={coin.market_cap}
-            sparkline={coin.sparkline_in_7d.price.map((item) => Math.floor(item))}
-          />
-        );
-      })}
+      <CoinList />
+      {/* <Router>
+        <Route path="/" element={<CoinList />} />
+      </Router> */}
     </div>
   );
 };
